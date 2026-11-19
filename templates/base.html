@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}{{ site_name }}{% endblock %}</title>
+<meta name="description" content="{% block desc %}Сайт из 20 вкладок с плавными переходами и современным дизайном.{% endblock %}">
+<link rel="canonical" href="{{ request.base_url }}">
+<meta name="theme-color" content="#070816">
+<link rel="icon" href="{{ url_for('static', filename='favicon.svg') }}" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="{{ site_name }}">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:title" content="{{ self.title() }}">
+<meta property="og:description" content="{{ self.desc() }}">
+<meta property="og:url" content="{{ request.base_url }}">
+<meta property="og:image" content="{{ url_for('static', filename='og-image.png', _external=True) }}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Название сайта на фиолетово-синем градиентном фоне">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+{% block head %}{% endblock %}
+</head>
+<body data-ga="{{ ga_id }}">
+<div class="bg" aria-hidden="true"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div></div>
+<nav aria-label="Вкладки">
+{% for n in range(1, total + 1) %}<a href="{{ url_for('tab', number=n) }}"{% if n == current %} class="active" aria-current="page"{% endif %}>{{ n }}</a>{% endfor %}
+</nav>
+<main {% block mattrs %}{% endblock %}>{% block content %}{% endblock %}</main>
+<footer>
+<a href="{{ url_for('privacy') }}">Политика конфиденциальности</a>
+<a href="{{ url_for('terms') }}">Условия использования</a>
+<a href="{{ url_for('contact') }}">Контакты</a>
+<button type="button" id="cookie-settings">Настройки cookies</button>
+</footer>
+<div id="cookie" role="dialog" aria-label="Согласие на cookies" hidden>
+<p>Мы используем cookies для аналитики, только если вы согласны. <a href="{{ url_for('privacy') }}">Подробнее</a></p>
+<div><button type="button" class="yes">Принять</button><button type="button" class="no">Отклонить</button></div>
+</div>
+<script src="{{ url_for('static', filename='app.js') }}" defer></script>
+</body>
+</html>

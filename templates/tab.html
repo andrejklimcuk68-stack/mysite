@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Вкладка {{ current }} из {{ total }} — {{ site_name }}{% endblock %}
+{% block desc %}Вкладка {{ current }} из {{ total }}. Листайте вкладки кнопками или стрелками на клавиатуре.{% endblock %}
+{% block mattrs %}data-prev="{{ url_for('tab', number=prev_n) }}" data-next="{{ url_for('tab', number=next_n) }}"{% endblock %}
+{% block content %}
+<section class="card">
+<img class="logo" src="{{ url_for('static', filename='favicon.svg') }}" width="56" height="56" alt="Логотип сайта: цифра 20">
+<div class="label">Вкладка</div>
+<div class="number">{{ current }}</div>
+<p>Здесь будет содержимое вкладки {{ current }}.</p>
+<a class="cta" href="{{ url_for('contact') }}">Написать нам</a>
+<div class="pager"><a href="{{ url_for('tab', number=prev_n) }}" rel="prev">← Назад</a><a href="{{ url_for('tab', number=next_n) }}" rel="next">Вперёд →</a></div>
+</section>
+{% endblock %}
