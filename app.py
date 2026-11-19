@@ -39,7 +39,7 @@ def security_headers(r):
 
 @app.route("/")
 def home():
-    return redirect(url_for("tab", number=1))
+    return render_template("landing.html")
 
 
 @app.route("/tab/<int:number>")
@@ -102,7 +102,7 @@ def robots():
 
 @app.route("/sitemap.xml")
 def sitemap():
-    pages = [url_for("tab", number=n, _external=True) for n in range(1, TOTAL_TABS + 1)]
+    pages = [url_for("home", _external=True)] + [url_for("tab", number=n, _external=True) for n in range(1, TOTAL_TABS + 1)]
     pages += [url_for(p, _external=True) for p in ("privacy", "terms", "contact")]
     xml = ('<?xml version="1.0" encoding="UTF-8"?>'
            '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'

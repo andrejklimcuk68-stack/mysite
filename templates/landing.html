@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ site_name }} — главная</title>
+<meta name="description" content="Уютное место с красивым меню, тёплой атмосферой и заботой о гостях. Меню, галерея, отзывы и контакты.">
+<link rel="canonical" href="{{ request.base_url }}">
+<meta name="theme-color" content="#14201c">
+<link rel="icon" href="{{ url_for('static', filename='favicon.svg') }}" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:title" content="{{ site_name }}">
+<meta property="og:description" content="Уютное место с красивым меню и тёплой атмосферой.">
+<meta property="og:url" content="{{ request.base_url }}">
+<meta property="og:image" content="{{ url_for('static', filename='og-image.png', _external=True) }}">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+:root{--bg:#14201c;--bg2:#1a2a25;--card:#203029;--line:rgba(255,255,255,.12);--text:#f3ece4;--muted:#bcc8c1;--sage:#7fae9d;--pink:#f0a8b8;--ink:#2a1a20}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:90px}
+body{font-family:"Segoe UI",system-ui,Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+a{color:inherit}ul{list-style:none}
+:focus-visible{outline:3px solid var(--pink);outline-offset:3px}
+.wrap{width:min(1080px,92%);margin:auto}
+header{position:sticky;top:0;z-index:10;background:rgba(20,32,28,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:72px}
+.brand{display:flex;align-items:center;gap:12px;font-weight:700;font-size:1.2rem;text-decoration:none}
+.dot{width:44px;height:44px;border-radius:50%;background:#fff;display:grid;place-items:center;font-size:1.4rem}
+nav{display:flex;gap:22px}nav a{color:var(--muted);text-decoration:none;padding:8px 0}nav a:hover{color:var(--text)}
+.btn{display:inline-block;padding:13px 26px;border-radius:999px;font-weight:700;text-decoration:none;background:var(--pink);color:var(--ink);box-shadow:0 8px 24px rgba(240,168,184,.25);transition:transform .25s}
+.btn:hover{transform:translateY(-3px)}
+.btn.ghost{background:none;color:var(--text);border:2px solid var(--sage);box-shadow:none}
+.hero{padding:72px 0 64px;background:radial-gradient(900px 400px at 85% 0,rgba(240,168,184,.14),transparent)}
+.hero .wrap{display:grid;grid-template-columns:1.2fr .8fr;gap:40px;align-items:center}
+.tag{display:inline-block;padding:6px 14px;border:1px solid var(--line);border-radius:999px;color:var(--sage);font-size:.9rem;margin-bottom:20px}
+h1{font-size:clamp(2.2rem,5vw,3.8rem);line-height:1.1;margin-bottom:18px}h1 span{color:var(--pink)}
+.lead{color:var(--muted);max-width:46ch;margin-bottom:26px}
+.row{display:flex;gap:14px;flex-wrap:wrap}
+.stats{display:flex;gap:14px;margin-top:32px;flex-wrap:wrap}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 20px;min-width:130px}
+.stat b{display:block;font-size:1.6rem;color:var(--sage)}.stat small{color:var(--muted)}
+.logo{width:min(300px,70vw);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 30% 25%,#fff,#f7e3e8 60%,#eec3ce);display:grid;place-items:center;font-size:6rem;margin:auto;box-shadow:0 20px 70px rgba(240,168,184,.2)}
+.strip{background:#3f6155;overflow:hidden;white-space:nowrap;padding:14px 0;font-weight:700}
+.strip div{display:inline-block;animation:run 30s linear infinite}
+@keyframes run{to{transform:translateX(-50%)}}
+section{padding:72px 0}section.alt{background:var(--bg2)}
+.eyebrow{color:var(--pink);font-weight:700;margin-bottom:6px}
+h2{font-size:clamp(1.8rem,3.5vw,2.6rem);line-height:1.2;margin-bottom:10px}
+.sub{color:var(--muted);margin-bottom:32px}
+.grid{display:grid;gap:16px}.g4{grid-template-columns:repeat(4,1fr)}.g3{grid-template-columns:repeat(3,1fr)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:24px}
+.card h3{margin-bottom:8px}.card p,.card li{color:var(--muted)}
+.card.on{background:#42645a}.card.on p{color:#eef4f0}
+.ico{width:44px;height:44px;border-radius:12px;background:rgba(255,255,255,.08);display:grid;place-items:center;font-size:1.3rem;margin-bottom:14px}
+.num{color:var(--pink);font-weight:800;font-size:1.3rem;margin-bottom:8px}
+.card li::before{content:"• ";color:var(--sage)}
+.feature{display:grid;grid-template-columns:.9fr 1.1fr;gap:40px;align-items:center;margin-top:48px}
+.photo{aspect-ratio:1;border-radius:22px;background:linear-gradient(135deg,#c98a55,#f0a8b8)}
+.price li{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px dashed var(--line);color:var(--text)}
+.price li::before{content:none}.price b{color:var(--pink)}
+.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.tile{min-height:260px;border-radius:22px;display:flex;align-items:flex-end;padding:16px;background:linear-gradient(160deg,var(--c1),var(--c2))}
+.tile span{background:rgba(20,32,28,.8);padding:6px 14px;border-radius:999px;font-weight:600}
+.stars{color:var(--pink);margin-top:10px}
+footer{border-top:1px solid var(--line);padding:28px 0;color:var(--muted);font-size:.95rem}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+footer a{margin-left:16px}
+@media(max-width:860px){nav{display:none}.hero .wrap,.feature{grid-template-columns:1fr}.g4,.g3,.gallery{grid-template-columns:1fr 1fr}.logo{order:-1;width:200px;font-size:4rem}}
+@media(max-width:560px){.g4,.g3,.gallery{grid-template-columns:1fr}.hero{padding-top:40px}}
+@media(prefers-reduced-motion:reduce){.strip div{animation:none}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+<a class="brand" href="#top"><span class="dot" aria-hidden="true">☕</span>{{ site_name }}</a>
+<nav aria-label="Разделы"><a href="#about">О нас</a><a href="#menu">Меню</a><a href="#gallery">Галерея</a><a href="#reviews">Отзывы</a><a href="#contacts">Контакты</a></nav>
+<a class="btn" href="{{ url_for('contact') }}">Написать нам</a>
+</div></header>
+<main id="top">
+<div class="hero"><div class="wrap">
+<div>
+<span class="tag">Ваша ниша · Ваш город</span>
+<h1>Вкусно, уютно и <span>с заботой</span> о каждом госте</h1>
+<p class="lead">Короткое описание вашего места: чем вы занимаетесь, что делает вас особенными и почему к вам хочется вернуться.</p>
+<div class="row"><a class="btn" href="#menu">Смотреть меню</a><a class="btn ghost" href="#contacts">Как нас найти</a></div>
+<div class="stats">
+<div class="stat"><b>5.0</b><small>рейтинг</small></div>
+<div class="stat"><b>100+</b><small>отзывов</small></div>
+<div class="stat"><b>9–20</b><small>каждый день</small></div>
+</div></div>
+<div class="logo" role="img" aria-label="Место для вашего логотипа">☕</div>
+</div></div>
+<div class="strip" aria-hidden="true"><div>{% for i in range(2) %}Преимущество 1 · Преимущество 2 · Преимущество 3 · Преимущество 4 · Преимущество 5 · {% endfor %}</div></div>
+
+<section id="about"><div class="wrap">
+<p class="eyebrow">О нас</p><h2>Почему к нам возвращаются</h2>
+<p class="sub">Здесь расскажите о главных сильных сторонах в одном предложении.</p>
+<div class="grid g4">
+<div class="card on"><div class="ico">★</div><h3>Качество</h3><p>Опишите, чем вы гордитесь больше всего.</p></div>
+<div class="card"><div class="ico">✿</div><h3>Свежесть</h3><p>Расскажите о продуктах, материалах или подходе.</p></div>
+<div class="card"><div class="ico">♥</div><h3>Забота</h3><p>Расскажите, как вы относитесь к гостям.</p></div>
+<div class="card"><div class="ico">✦</div><h3>Бонусы</h3><p>Акции, карта лояльности или подарки.</p></div>
+</div></div></section>
+
+<section id="menu" class="alt"><div class="wrap">
+<p class="eyebrow">Меню</p><h2>Что попробовать</h2>
+<p class="sub">Основные позиции. Замените названия на свои.</p>
+<div class="grid g3">
+<div class="card"><div class="num">01</div><h3>Раздел 1</h3><ul><li>Позиция первая</li><li>Позиция вторая</li><li>Позиция третья</li></ul></div>
+<div class="card"><div class="num">02</div><h3>Раздел 2</h3><ul><li>Позиция первая</li><li>Позиция вторая</li><li>Позиция третья</li></ul></div>
+<div class="card"><div class="num">03</div><h3>Раздел 3</h3><ul><li>Позиция первая</li><li>Позиция вторая</li></ul></div>
+</div>
+<div class="feature">
+<div class="photo" role="img" aria-label="Место для фото вашего особого предложения"></div>
+<div><p class="eyebrow">Особое предложение</p><h2>Название вашей новинки</h2>
+<ul class="price"><li>Позиция 1 <b>100 ₴</b></li><li>Позиция 2 <b>120 ₴</b></li><li>Позиция 3 <b>130 ₴</b></li><li>Позиция 4 <b>140 ₴</b></li></ul></div>
+</div></div></section>
+
+<section id="gallery"><div class="wrap">
+<p class="eyebrow">Галерея</p><h2>Атмосфера нашего места</h2>
+<p class="sub">Замените цветные блоки своими фотографиями.</p>
+<div class="gallery">
+<div class="tile" style="--c1:#7a5c4a;--c2:#d9a98c"><span>Подпись к фото 1</span></div>
+<div class="tile" style="--c1:#2f4d44;--c2:#7fae9d"><span>Подпись к фото 2</span></div>
+<div class="tile" style="--c1:#7d4e5c;--c2:#f0a8b8"><span>Подпись к фото 3</span></div>
+<div class="tile" style="--c1:#4a5a7a;--c2:#a9b8d9"><span>Подпись к фото 4</span></div>
+<div class="tile" style="--c1:#5a6b3c;--c2:#c2d08c"><span>Подпись к фото 5</span></div>
+<div class="tile" style="--c1:#8a5a2e;--c2:#e8c48a"><span>Подпись к фото 6</span></div>
+</div></div></section>
+
+<section id="reviews" class="alt"><div class="wrap">
+<p class="eyebrow">Отзывы</p><h2>Гости о нас</h2>
+<p class="sub">Вставьте настоящие отзывы своих клиентов.</p>
+<div class="grid g3">
+<div class="card"><p>Пример отзыва: короткий тёплый текст о вашем месте.</p><div class="stars" role="img" aria-label="5 из 5">★★★★★</div></div>
+<div class="card"><p>Пример отзыва: что особенно понравилось гостю.</p><div class="stars" role="img" aria-label="5 из 5">★★★★★</div></div>
+<div class="card"><p>Пример отзыва: почему он рекомендует вас друзьям.</p><div class="stars" role="img" aria-label="5 из 5">★★★★★</div></div>
+</div></div></section>
+
+<section id="contacts"><div class="wrap">
+<p class="eyebrow">Контакты</p><h2>Ждём вас</h2>
+<p class="sub">Ваш адрес: улица, дом, город.</p>
+<div class="grid g3">
+<div class="card"><h3>Часы работы</h3><p>Пн–Вс: 9:00–20:00</p></div>
+<div class="card"><h3>Связь</h3><p>+000 00 000 0000</p><p>{{ contact_email }}</p></div>
+<div class="card on"><h3>Проложить маршрут</h3><p>Откройте место на карте.</p><p><a class="btn" href="https://maps.google.com" rel="noopener" target="_blank">Открыть карту</a></p></div>
+</div></div></section>
+</main>
+<footer><div class="wrap">
+<span>© 2026 {{ site_name }}</span>
+<span><a href="{{ url_for('tab', number=1) }}">Все вкладки</a><a href="{{ url_for('privacy') }}">Политика конфиденциальности</a><a href="{{ url_for('terms') }}">Условия использования</a></span>
+</div></footer>
+</body>
+</html>
