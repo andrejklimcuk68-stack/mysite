@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Забронювати столик — {{ site }}{% endblock %}
+{% block desc %}Забронюйте столик у кав’ярні {{ site }} онлайн: оберіть дату, час і кількість гостей.{% endblock %}
+{% block sticky %}{% endblock %}
+{% block content %}
+<div class="card doc">
+<h1>Забронювати столик</h1>
+{% if sent %}
+<p class="ok" role="status">Дякуємо! Заявку надіслано. Ми зателефонуємо, щоб підтвердити бронь.</p>
+<p><a href="{{ url_for('home') }}">← На головну</a></p>
+{% else %}
+<p>Залиште заявку, і ми підтвердимо бронь по телефону.</p>
+{% if err.form %}<p class="err" role="alert">{{ err.form }}</p>{% endif %}
+<form method="post" action="{{ url_for('book') }}">
+<input type="hidden" name="t" value="{{ token }}">
+<div class="hp" aria-hidden="true"><label>Не заповнюйте це поле<input name="website" tabindex="-1" autocomplete="off"></label></div>
+<div><label for="name">Ім’я</label><input id="name" name="name" required minlength="2" maxlength="60" autocomplete="name" value="{{ f.name }}">{% if err.name %}<span class="err">{{ err.name }}</span>{% endif %}</div>
+<div><label for="phone">Телефон</label><input id="phone" name="phone" type="tel" required pattern="\+?[\d\s()\-]{9,18}" placeholder="+380 50 123 4567" autocomplete="tel" value="{{ f.phone }}">{% if err.phone %}<span class="err">{{ err.phone }}</span>{% endif %}</div>
+<div class="two">
+<div><label for="when">Дата й час</label><input id="when" name="when" type="datetime-local" required value="{{ f.when }}">{% if err.when %}<span class="err">{{ err.when }}</span>{% endif %}</div>
+<div><label for="guests">Гостей</label><select id="guests" name="guests" required>{% for n in range(1, 13) %}<option value="{{ n }}"{% if f.guests == n|string or (not f.guests and n == 2) %} selected{% endif %}>{{ n }}</option>{% endfor %}</select>{% if err.guests %}<span class="err">{{ err.guests }}</span>{% endif %}</div>
+</div>
+<div><label for="note">Побажання (необов’язково)</label><textarea id="note" name="note" rows="3" maxlength="300">{{ f.note }}</textarea>{% if err.note %}<span class="err">{{ err.note }}</span>{% endif %}</div>
+<button class="btn" type="submit">Забронювати столик</button>
+</form>
+{% endif %}
+</div>
+{% endblock %}

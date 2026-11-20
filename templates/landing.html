@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="uk">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{{ site_name }} — главная</title>
-<meta name="description" content="Уютное место с красивым меню, тёплой атмосферой и заботой о гостях. Меню, галерея, отзывы и контакты.">
+<title>{{ site_name }} — головна</title>
+<meta name="description" content="Затишне місце зі смачним меню, теплою атмосферою та турботою про гостей. Меню, галерея, відгуки та контакти.">
 <link rel="canonical" href="{{ request.base_url }}">
 <meta name="theme-color" content="#14201c">
 <link rel="icon" href="{{ url_for('static', filename='favicon.svg') }}" type="image/svg+xml">
-<meta property="og:type" content="website">
+<meta property="og:type" content="website"><meta property="og:locale" content="uk_UA">
 <meta property="og:title" content="{{ site_name }}">
-<meta property="og:description" content="Уютное место с красивым меню и тёплой атмосферой.">
+<meta property="og:description" content="Затишне місце зі смачним меню та теплою атмосферою.">
 <meta property="og:url" content="{{ request.base_url }}">
 <meta property="og:image" content="{{ url_for('static', filename='og-image.png', _external=True) }}">
 <meta name="twitter:card" content="summary_large_image">
@@ -68,87 +68,120 @@ footer a{margin-left:16px}
 @media(max-width:860px){nav{display:none}.hero .wrap,.feature{grid-template-columns:1fr}.g4,.g3,.gallery{grid-template-columns:1fr 1fr}.logo{order:-1;width:200px;font-size:4rem}}
 @media(max-width:560px){.g4,.g3,.gallery{grid-template-columns:1fr}.hero{padding-top:40px}}
 @media(prefers-reduced-motion:reduce){.strip div{animation:none}html{scroll-behavior:auto}}
+@view-transition{navigation:auto}
+::view-transition-old(root),::view-transition-new(root){animation-duration:.9s;animation-timing-function:cubic-bezier(.22,1,.36,1)}
+:root{--ease:cubic-bezier(.22,1,.36,1)}
+header{transition:box-shadow .6s var(--ease)}header.sc{box-shadow:0 12px 34px rgba(0,0,0,.4)}
+nav a{position:relative}nav a::after{content:"";position:absolute;left:0;right:0;bottom:2px;height:2px;background:var(--pink);transform:scaleX(0);transform-origin:left;transition:transform .6s var(--ease)}nav a:hover::after{transform:scaleX(1)}
+.btn{transition:transform .6s var(--ease),box-shadow .6s var(--ease)}.btn:hover{box-shadow:0 14px 34px rgba(240,168,184,.4)}
+.card{transition:transform .7s var(--ease),border-color .7s,box-shadow .7s}.card:hover{transform:translateY(-6px);border-color:rgba(240,168,184,.4);box-shadow:0 18px 44px rgba(0,0,0,.3)}
+.tile{transition:transform .9s var(--ease),filter .9s}.tile:hover{transform:scale(1.025);filter:brightness(1.08)}
+.stat{transition:transform .7s var(--ease)}.stat:hover{transform:translateY(-4px)}
+.logo{animation:bob 8s ease-in-out infinite}@keyframes bob{50%{transform:translateY(-16px)}}
+.js .rv{opacity:0;transform:translateY(30px) scale(.98);filter:blur(6px);transition:opacity 1.2s var(--ease) var(--d,0ms),transform 1.2s var(--ease) var(--d,0ms),filter 1.2s var(--ease) var(--d,0ms);will-change:transform,opacity}
+.js .rv.in{opacity:1;transform:none;filter:none}
+#cookie{position:fixed;left:12px;right:12px;bottom:12px;z-index:20;max-width:560px;margin:auto;padding:16px 18px;background:#12201b;border:1px solid var(--line);border-radius:16px;box-shadow:0 10px 40px rgba(0,0,0,.6);animation:up .9s var(--ease)}
+#cookie[hidden]{display:none}#cookie div{display:flex;gap:10px;margin-top:10px;flex-wrap:wrap}
+#cookie button{padding:10px 18px;border-radius:999px;border:1px solid #fff;background:none;color:#fff;font:inherit;cursor:pointer}#cookie .yes{background:#fff;color:#2a1a20;font-weight:700}
+@keyframes up{from{opacity:0;transform:translateY(24px)}}
+footer button{background:none;border:0;color:var(--muted);font:inherit;text-decoration:underline;cursor:pointer;margin-left:16px}
+@media(prefers-reduced-motion:reduce){.logo{animation:none}.card,.tile,.btn{transition:none}}
 </style>
 </head>
-<body>
+<body data-ga="{{ ga_id }}">
 <header><div class="wrap">
 <a class="brand" href="#top"><span class="dot" aria-hidden="true">☕</span>{{ site_name }}</a>
-<nav aria-label="Разделы"><a href="#about">О нас</a><a href="#menu">Меню</a><a href="#gallery">Галерея</a><a href="#reviews">Отзывы</a><a href="#contacts">Контакты</a></nav>
-<a class="btn" href="{{ url_for('contact') }}">Написать нам</a>
+<nav aria-label="Розділи"><a href="#about">Про нас</a><a href="#menu">Меню</a><a href="#gallery">Галерея</a><a href="#reviews">Відгуки</a><a href="#contacts">Контакти</a></nav>
+<a class="btn" href="{{ url_for('contact') }}">Написати нам</a>
 </div></header>
 <main id="top">
 <div class="hero"><div class="wrap">
 <div>
-<span class="tag">Ваша ниша · Ваш город</span>
-<h1>Вкусно, уютно и <span>с заботой</span> о каждом госте</h1>
-<p class="lead">Короткое описание вашего места: чем вы занимаетесь, что делает вас особенными и почему к вам хочется вернуться.</p>
-<div class="row"><a class="btn" href="#menu">Смотреть меню</a><a class="btn ghost" href="#contacts">Как нас найти</a></div>
+<span class="tag">Кав’ярня · Пекарня · Ваше місто</span>
+<h1>Кава, випічка та <span>затишок</span> для кожного гостя</h1>
+<p class="lead">Коротко про ваш заклад: чим ви особливі та чому до вас хочеться повертатися.</p>
+<div class="row"><a class="btn" href="#menu">Дивитись меню</a><a class="btn ghost" href="#contacts">Як нас знайти</a></div>
 <div class="stats">
 <div class="stat"><b>5.0</b><small>рейтинг</small></div>
-<div class="stat"><b>100+</b><small>отзывов</small></div>
-<div class="stat"><b>9–20</b><small>каждый день</small></div>
+<div class="stat"><b>100+</b><small>відгуків</small></div>
+<div class="stat"><b>9–20</b><small>щодня</small></div>
 </div></div>
-<div class="logo" role="img" aria-label="Место для вашего логотипа">☕</div>
+<div class="logo" role="img" aria-label="Місце для вашого логотипа">☕</div>
 </div></div>
-<div class="strip" aria-hidden="true"><div>{% for i in range(2) %}Преимущество 1 · Преимущество 2 · Преимущество 3 · Преимущество 4 · Преимущество 5 · {% endfor %}</div></div>
+<div class="strip" aria-hidden="true"><div>{% for i in range(2) %}Смачна кава · Свіжа випічка · Домашні десерти · Приємні ціни · Турбота про гостей · {% endfor %}</div></div>
 
 <section id="about"><div class="wrap">
-<p class="eyebrow">О нас</p><h2>Почему к нам возвращаются</h2>
-<p class="sub">Здесь расскажите о главных сильных сторонах в одном предложении.</p>
+<p class="eyebrow">Про нас</p><h2>Чому до нас повертаються</h2>
+<p class="sub">Головні переваги закладу одним реченням.</p>
 <div class="grid g4">
-<div class="card on"><div class="ico">★</div><h3>Качество</h3><p>Опишите, чем вы гордитесь больше всего.</p></div>
-<div class="card"><div class="ico">✿</div><h3>Свежесть</h3><p>Расскажите о продуктах, материалах или подходе.</p></div>
-<div class="card"><div class="ico">♥</div><h3>Забота</h3><p>Расскажите, как вы относитесь к гостям.</p></div>
-<div class="card"><div class="ico">✦</div><h3>Бонусы</h3><p>Акции, карта лояльности или подарки.</p></div>
+<div class="card on"><div class="ico">★</div><h3>Якість</h3><p>Опишіть, чим ви найбільше пишаєтеся.</p></div>
+<div class="card"><div class="ico">✿</div><h3>Свіжість</h3><p>Розкажіть про продукти та підхід.</p></div>
+<div class="card"><div class="ico">♥</div><h3>Турбота</h3><p>Розкажіть, як ви ставитесь до гостей.</p></div>
+<div class="card"><div class="ico">✦</div><h3>Бонуси</h3><p>Акції, картка лояльності чи подарунки.</p></div>
 </div></div></section>
 
 <section id="menu" class="alt"><div class="wrap">
-<p class="eyebrow">Меню</p><h2>Что попробовать</h2>
-<p class="sub">Основные позиции. Замените названия на свои.</p>
+<p class="eyebrow">Меню</p><h2>Що спробувати</h2>
+<p class="sub">Основні позиції. Замініть назви на свої.</p>
 <div class="grid g3">
-<div class="card"><div class="num">01</div><h3>Раздел 1</h3><ul><li>Позиция первая</li><li>Позиция вторая</li><li>Позиция третья</li></ul></div>
-<div class="card"><div class="num">02</div><h3>Раздел 2</h3><ul><li>Позиция первая</li><li>Позиция вторая</li><li>Позиция третья</li></ul></div>
-<div class="card"><div class="num">03</div><h3>Раздел 3</h3><ul><li>Позиция первая</li><li>Позиция вторая</li></ul></div>
+<div class="card"><div class="num">01</div><h3>Розділ 1</h3><ul><li>Позиція перша</li><li>Позиція друга</li><li>Позиція третя</li></ul></div>
+<div class="card"><div class="num">02</div><h3>Розділ 2</h3><ul><li>Позиція перша</li><li>Позиція друга</li><li>Позиція третя</li></ul></div>
+<div class="card"><div class="num">03</div><h3>Розділ 3</h3><ul><li>Позиція перша</li><li>Позиція друга</li></ul></div>
 </div>
 <div class="feature">
-<div class="photo" role="img" aria-label="Место для фото вашего особого предложения"></div>
-<div><p class="eyebrow">Особое предложение</p><h2>Название вашей новинки</h2>
-<ul class="price"><li>Позиция 1 <b>100 ₴</b></li><li>Позиция 2 <b>120 ₴</b></li><li>Позиция 3 <b>130 ₴</b></li><li>Позиция 4 <b>140 ₴</b></li></ul></div>
+<div class="photo" role="img" aria-label="Місце для фото вашої особливої пропозиції"></div>
+<div><p class="eyebrow">Особлива пропозиція</p><h2>Назва вашої новинки</h2>
+<ul class="price"><li>Позиція 1 <b>100 ₴</b></li><li>Позиція 2 <b>120 ₴</b></li><li>Позиція 3 <b>130 ₴</b></li><li>Позиція 4 <b>140 ₴</b></li></ul></div>
 </div></div></section>
 
 <section id="gallery"><div class="wrap">
-<p class="eyebrow">Галерея</p><h2>Атмосфера нашего места</h2>
-<p class="sub">Замените цветные блоки своими фотографиями.</p>
+<p class="eyebrow">Галерея</p><h2>Атмосфера нашого закладу</h2>
+<p class="sub">Замініть кольорові блоки власними фото.</p>
 <div class="gallery">
-<div class="tile" style="--c1:#7a5c4a;--c2:#d9a98c"><span>Подпись к фото 1</span></div>
-<div class="tile" style="--c1:#2f4d44;--c2:#7fae9d"><span>Подпись к фото 2</span></div>
-<div class="tile" style="--c1:#7d4e5c;--c2:#f0a8b8"><span>Подпись к фото 3</span></div>
-<div class="tile" style="--c1:#4a5a7a;--c2:#a9b8d9"><span>Подпись к фото 4</span></div>
-<div class="tile" style="--c1:#5a6b3c;--c2:#c2d08c"><span>Подпись к фото 5</span></div>
-<div class="tile" style="--c1:#8a5a2e;--c2:#e8c48a"><span>Подпись к фото 6</span></div>
+<div class="tile" style="--c1:#7a5c4a;--c2:#d9a98c"><span>Підпис до фото 1</span></div>
+<div class="tile" style="--c1:#2f4d44;--c2:#7fae9d"><span>Підпис до фото 2</span></div>
+<div class="tile" style="--c1:#7d4e5c;--c2:#f0a8b8"><span>Підпис до фото 3</span></div>
+<div class="tile" style="--c1:#4a5a7a;--c2:#a9b8d9"><span>Підпис до фото 4</span></div>
+<div class="tile" style="--c1:#5a6b3c;--c2:#c2d08c"><span>Підпис до фото 5</span></div>
+<div class="tile" style="--c1:#8a5a2e;--c2:#e8c48a"><span>Підпис до фото 6</span></div>
 </div></div></section>
 
 <section id="reviews" class="alt"><div class="wrap">
-<p class="eyebrow">Отзывы</p><h2>Гости о нас</h2>
-<p class="sub">Вставьте настоящие отзывы своих клиентов.</p>
+<p class="eyebrow">Відгуки</p><h2>Гості про нас</h2>
+<p class="sub">Вставте справжні відгуки ваших клієнтів.</p>
 <div class="grid g3">
-<div class="card"><p>Пример отзыва: короткий тёплый текст о вашем месте.</p><div class="stars" role="img" aria-label="5 из 5">★★★★★</div></div>
-<div class="card"><p>Пример отзыва: что особенно понравилось гостю.</p><div class="stars" role="img" aria-label="5 из 5">★★★★★</div></div>
-<div class="card"><p>Пример отзыва: почему он рекомендует вас друзьям.</p><div class="stars" role="img" aria-label="5 из 5">★★★★★</div></div>
+<div class="card"><p>Приклад відгуку: короткий теплий текст про ваш заклад.</p><div class="stars" role="img" aria-label="5 з 5">★★★★★</div></div>
+<div class="card"><p>Приклад відгуку: що особливо сподобалося гостю.</p><div class="stars" role="img" aria-label="5 з 5">★★★★★</div></div>
+<div class="card"><p>Приклад відгуку: чому він радить вас друзям.</p><div class="stars" role="img" aria-label="5 з 5">★★★★★</div></div>
 </div></div></section>
 
 <section id="contacts"><div class="wrap">
-<p class="eyebrow">Контакты</p><h2>Ждём вас</h2>
-<p class="sub">Ваш адрес: улица, дом, город.</p>
+<p class="eyebrow">Контакти</p><h2>Чекаємо на вас</h2>
+<p class="sub">Ваша адреса: вулиця, будинок, місто.</p>
 <div class="grid g3">
-<div class="card"><h3>Часы работы</h3><p>Пн–Вс: 9:00–20:00</p></div>
-<div class="card"><h3>Связь</h3><p>+000 00 000 0000</p><p>{{ contact_email }}</p></div>
-<div class="card on"><h3>Проложить маршрут</h3><p>Откройте место на карте.</p><p><a class="btn" href="https://maps.google.com" rel="noopener" target="_blank">Открыть карту</a></p></div>
+<div class="card"><h3>Години роботи</h3><p>Пн–Нд: 9:00–20:00</p></div>
+<div class="card"><h3>Зв’язок</h3><p>+380 00 000 0000</p><p>{{ contact_email }}</p></div>
+<div class="card on"><h3>Прокласти маршрут</h3><p>Відкрийте заклад на карті.</p><p><a class="btn" href="https://maps.google.com" rel="noopener" target="_blank">Відкрити карту</a></p></div>
 </div></div></section>
 </main>
 <footer><div class="wrap">
 <span>© 2026 {{ site_name }}</span>
-<span><a href="{{ url_for('tab', number=1) }}">Все вкладки</a><a href="{{ url_for('privacy') }}">Политика конфиденциальности</a><a href="{{ url_for('terms') }}">Условия использования</a></span>
+<span><a href="{{ url_for('tab', number=1) }}">Усі вкладки</a><a href="{{ url_for('privacy') }}">Політика конфіденційності</a><a href="{{ url_for('terms') }}">Умови використання</a><button type="button" id="cookie-settings">Налаштування cookies</button></span>
 </div></footer>
+<div id="cookie" role="dialog" aria-label="Згода на cookies" hidden>
+<p>Ми використовуємо cookies для аналітики лише за вашої згоди. <a href="{{ url_for('privacy') }}">Докладніше</a></p>
+<div><button type="button" class="yes">Прийняти</button><button type="button" class="no">Відхилити</button></div>
+</div>
+<script>
+(()=>{if(matchMedia("(prefers-reduced-motion: reduce)").matches)return;
+document.documentElement.classList.add("js");
+const els=document.querySelectorAll("section .eyebrow,section h2,section .sub,.card,.tile,.stat,.feature>*,.hero .wrap>div:first-child>*");
+els.forEach(e=>{e.classList.add("rv");e.style.setProperty("--d",Math.min([...e.parentElement.children].indexOf(e),6)*100+"ms")});
+const io=new IntersectionObserver(es=>es.forEach(x=>{if(!x.isIntersecting)return;const t=x.target;t.classList.add("in");io.unobserve(t);
+t.addEventListener("transitionend",ev=>{if(ev.target===t&&ev.propertyName==="opacity"){t.classList.remove("rv","in");t.style.removeProperty("--d")}})}),{threshold:.12,rootMargin:"0px 0px -6% 0px"});
+els.forEach(e=>io.observe(e));
+const h=document.querySelector("header");addEventListener("scroll",()=>h.classList.toggle("sc",scrollY>20),{passive:true})})();
+</script>
+<script src="{{ url_for('static', filename='app.js') }}" defer></script>
 </body>
 </html>

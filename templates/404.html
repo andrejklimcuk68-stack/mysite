@@ -1,11 +1,7 @@
 {% extends "base.html" %}
-{% block title %}Страница не найдена — {{ site_name }}{% endblock %}
-{% block desc %}Такой страницы нет. Вернитесь на главную.{% endblock %}
+{% block title %}Сторінку не знайдено — {{ site }}{% endblock %}
+{% block desc %}Такої сторінки немає. Поверніться на головну.{% endblock %}
 {% block head %}<meta name="robots" content="noindex">{% endblock %}
 {% block content %}
-<section class="card">
-<div class="number">404</div>
-<p>Такой страницы нет. Возможно, ссылка устарела или в адресе опечатка.</p>
-<a class="cta" href="{{ url_for('home') }}">Перейти на главную</a>
-</section>
+<div class="card doc" style="text-align:center"><h1>404</h1><p>Схоже, ця сторінка вже випила свою каву й пішла. Повернімося на головну?</p><a class="btn" href="{{ url_for('home') }}">Перейти на головну</a></div>
 {% endblock %}
