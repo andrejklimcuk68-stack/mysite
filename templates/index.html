@@ -1,67 +1,38 @@
 {% extends "base.html" %}
-{% block head %}<script type="application/ld+json">{"@context":"https://schema.org","@type":"CafeOrCoffeeShop","name":"{{ site }}","url":"{{ request.url_root }}","servesCuisine":"Кава, випічка, десерти","openingHours":"Mo-Su 09:00-20:00"}</script>{% endblock %}
+{% block head %}<script type="application/ld+json">{"@context":"https://schema.org","@type":"CafeOrCoffeeShop","name":"In Ліс","url":"{{ alts.uk }}","telephone":"{{ phone[0] }}","servesCuisine":"Coffee, tea, cocoa, desserts","geo":{"@type":"GeoCoordinates","latitude":50.5118199,"longitude":30.2340059},"hasMap":"{{ maps }}"}</script>{% endblock %}
 {% block content %}
-<div class="hero"><div class="blob b1"></div><div class="blob b2"></div><div class="wrap">
+<div class="hero">
+{% for x, y in [(10,30),(24,62),(38,22),(55,70),(70,28),(84,58),(92,20)] %}<i class="ff" aria-hidden="true" style="left:{{ x }}%;top:{{ y }}%;animation-delay:-{{ loop.index * 1.7 }}s,-{{ loop.index * 2.3 }}s"></i>{% endfor %}
+{% for x in [6, 28, 52, 74, 90] %}<span class="leaf" aria-hidden="true" style="left:{{ x }}%;animation-delay:-{{ loop.index * 3 }}s;animation-duration:{{ 14 + loop.index * 2 }}s">🍃</span>{% endfor %}
+<svg class="trees" viewBox="0 0 1200 110" preserveAspectRatio="none" aria-hidden="true">{% for i in range(24) %}<path d="M{{ i * 50 }} 110 L{{ i * 50 + 25 }} {{ 25 + (i * 37) % 45 }} L{{ i * 50 + 50 }} 110Z"/>{% endfor %}</svg>
+<div class="wrap">
 <div class="txt">
-<span class="pill" id="open">● Години роботи 9:00–20:00</span>
-<h1>Кава, від якої <em>тепліше</em> на душі</h1>
-<p class="lead">Свіжообсмажена кава, випічка щодня зранку та домашні десерти. Забронюйте столик за хвилину й приходьте з друзями, сім’єю чи з ноутбуком.</p>
-<div class="row"><a class="btn pulse" href="{{ url_for('book') }}">Забронювати столик</a><a class="link" href="#menu">Дивитись меню →</a></div>
+<span class="pill">{{ t.tag }}</span>
+<h1>{{ t.h1 }}<em>{{ t.em }}</em></h1>
+<p class="lead">{{ t.lead }}</p>
+<div class="row"><a class="btn gold pulse" href="{{ maps }}" target="_blank" rel="noopener">📍 {{ t.cta }}</a><a class="link" href="tel:{{ phone[0] }}">📞 {{ phone[1] }}</a></div>
 </div>
-<div class="art"><div class="orbit" aria-hidden="true"><span>🥐</span><span>🌿</span><span>🍰</span><span>☕</span></div>
-<img src="{{ url_for('static', filename='cup.svg') }}" width="420" height="420" alt="Ілюстрація: чашка кави з ароматною парою"></div>
+<div class="art"><div class="orbit" aria-hidden="true"><span>🌲</span><span>🍃</span><span>☕</span><span>🍰</span></div>
+<img src="{{ url_for('static', filename='logo.svg') }}" width="420" height="420" alt="{{ t.logo }}"></div>
 </div></div>
-<div class="strip" aria-hidden="true"><div>{% for i in range(2) %}☕ Свіжа кава · 🥐 Щоденна випічка · 🍰 Домашні десерти · 🌿 Затишна атмосфера · 🎁 Бонуси гостям · {% endfor %}</div></div>
+<div class="strip" aria-hidden="true"><div>{% for i in range(4) %}{% for c in t.cats %}{{ c[0] }} {{ c[1] }} · {% endfor %}{% endfor %}</div></div>
 
-<section id="why"><div class="wrap">
-<p class="eyebrow">Чому ми</p><h2>Місце, куди хочеться повертатися</h2>
-<p class="sub">Чотири причини, чому гості обирають нас знову.</p>
+<section id="menu"><div class="wrap">
+<h2>{{ t.nav[0] }}</h2>
 <div class="grid g4">
-<div class="card"><div class="ico">☕</div><h3>Смачна кава</h3><p>Зерна свіжого обсмажування та баристи, які люблять свою справу.</p></div>
-<div class="card"><div class="ico">🥐</div><h3>Свіжа випічка</h3><p>Круасани й булочки виходять із печі щоранку.</p></div>
-<div class="card"><div class="ico">🌿</div><h3>Затишок</h3><p>М’яке світло, рослини й музика, під яку легко розслабитись.</p></div>
-<div class="card"><div class="ico">🎁</div><h3>Бонуси</h3><p>Картка гостя: кожна десята кава у подарунок.</p></div>
+{% for ico, name, items in t.cats %}<div class="card"><div class="ico">{{ ico }}</div><h3>{{ name }}</h3><ul class="items">{% for i in items %}<li>{{ i }}</li>{% endfor %}</ul></div>{% endfor %}
 </div></div></section>
 
-<section id="menu" class="alt"><div class="wrap">
-<p class="eyebrow">Меню</p><h2>Що спробувати</h2>
-<p class="sub">Улюблені позиції наших гостей. Замініть назви й ціни на свої.</p>
-<div class="grid g3">
-<div class="card"><h3>Кава</h3><ul class="price"><li>Еспресо <b>45 ₴</b></li><li>Капучино <span class="hit">Хіт</span> <b>75 ₴</b></li><li>Флет уайт <b>85 ₴</b></li><li>Раф ванільний <b>110 ₴</b></li></ul></div>
-<div class="card"><h3>Випічка</h3><ul class="price"><li>Круасан класичний <b>65 ₴</b></li><li>Круасан із мигдалем <span class="hit">Хіт</span> <b>95 ₴</b></li><li>Булочка з корицею <b>70 ₴</b></li><li>Сирники <b>120 ₴</b></li></ul></div>
-<div class="card"><h3>Десерти</h3><ul class="price"><li>Чизкейк <span class="hit">Хіт</span> <b>130 ₴</b></li><li>Тірамісу <b>140 ₴</b></li><li>Брауні <b>90 ₴</b></li><li>Макарон <b>60 ₴</b></li></ul></div>
+<section id="photos" class="alt"><div class="wrap">
+<h2>{{ t.photos_h }}</h2>
+<div class="trio">
+{% for n in (4, 1, 2, 3) %}<figure class="photo"><img src="{{ sv('photo%d.jpg' % n) }}" width="685" height="819" loading="lazy" alt="{{ t.alt[n - 1] }}"></figure>{% endfor %}
 </div></div></section>
 
-<section><div class="wrap"><div class="stats">
-<div class="stat"><b>5.0</b><span>середня оцінка гостей</span></div>
-<div class="stat"><b>100+</b><span>щасливих відгуків</span></div>
-<div class="stat"><b>9–20</b><span>працюємо щодня</span></div>
-</div></div></section>
-
-<section id="gallery" class="alt"><div class="wrap">
-<p class="eyebrow">Галерея</p><h2>Атмосфера нашого закладу</h2>
-<p class="sub">Замініть кольорові блоки власними фото.</p>
-<div class="grid g4">
-<div class="tile" role="img" aria-label="Місце для фото кави" style="--c1:#f2b84b;--c2:#c0452f">☕</div>
-<div class="tile" role="img" aria-label="Місце для фото випічки" style="--c1:#f6dcc0;--c2:#d9904f">🥐</div>
-<div class="tile" role="img" aria-label="Місце для фото десертів" style="--c1:#f4c6c6;--c2:#c0687a">🍰</div>
-<div class="tile" role="img" aria-label="Місце для фото інтер’єру" style="--c1:#bcd8c0;--c2:#4f7457">🌿</div>
-</div></div></section>
-
-<section id="reviews"><div class="wrap">
-<p class="eyebrow">Відгуки</p><h2>Гості про нас</h2>
-<p class="sub">Вставте справжні відгуки ваших клієнтів.</p>
-<div class="grid g3">
-<div class="card"><p>Приклад відгуку: найсмачніше капучино в місті й дуже привітний персонал.</p><div class="stars" role="img" aria-label="5 з 5">★★★★★</div></div>
-<div class="card"><p>Приклад відгуку: свіжа випічка, затишно, гарно працювати з ноутбуком.</p><div class="stars" role="img" aria-label="5 з 5">★★★★★</div></div>
-<div class="card"><p>Приклад відгуку: бронювали столик на день народження, усе було чудово.</p><div class="stars" role="img" aria-label="5 з 5">★★★★★</div></div>
-</div></div></section>
-
-<section id="contacts" class="alt"><div class="wrap">
-<div class="band"><h2>Столик на сьогодні?</h2><p>Залиште заявку, і ми підтвердимо бронь по телефону. Це займе хвилину.</p><a class="btn light" href="{{ url_for('book') }}">Забронювати столик</a></div>
-<div class="grid g3" style="margin-top:28px">
-<div class="card"><h3>Години роботи</h3><p>Пн–Нд: 9:00–20:00</p></div>
-<div class="card"><h3>Адреса</h3><p>Вулиця, будинок, місто</p></div>
-<div class="card"><h3>Зв’язок</h3><p>+380 00 000 0000</p><p>{{ to }}</p></div>
+<section id="contacts"><div class="wrap">
+<h2>{{ t.nav[2] }}</h2>
+<div class="grid g2">
+<div class="card"><div class="ico">📞</div><h3>{{ t.phone_l }}</h3><p><a class="big" href="tel:{{ phone[0] }}">{{ phone[1] }}</a></p></div>
+<div class="card hot"><div class="ico">🗺️</div><h3>Google Maps</h3><p><a class="btn light" href="{{ maps }}" target="_blank" rel="noopener">📍 {{ t.cta }}</a></p></div>
 </div></div></section>
 {% endblock %}

@@ -1,7 +1,8 @@
 {% extends "base.html" %}
-{% block title %}Сторінку не знайдено — {{ site }}{% endblock %}
-{% block desc %}Такої сторінки немає. Поверніться на головну.{% endblock %}
+{% block title %}404 — In Ліс{% endblock %}
+{% block desc %}{{ t.nf[0] }}{% endblock %}
 {% block head %}<meta name="robots" content="noindex">{% endblock %}
+{% block sticky %}{% endblock %}
 {% block content %}
-<div class="card doc" style="text-align:center"><h1>404</h1><p>Схоже, ця сторінка вже випила свою каву й пішла. Повернімося на головну?</p><a class="btn" href="{{ url_for('home') }}">Перейти на головну</a></div>
+<div class="card doc" style="text-align:center"><h1>404</h1><p>{{ t.nf[0] }}</p><a class="btn" href="{{ L('/') }}">{{ t.nf[1] }}</a></div>
 {% endblock %}
