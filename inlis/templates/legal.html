@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block title %}{{ doc.h }} — In Ліс{% endblock %}
+{% block desc %}{{ doc.desc }}{% endblock %}
+{% block content %}
+<article class="card doc"><h1>{{ doc.h }}</h1>
+{% for h, p in doc["items"] %}<h2>{{ h }}</h2><p>{{ p }}</p>{% endfor %}
+</article>
+{% endblock %}

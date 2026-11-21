@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block head %}<script type="application/ld+json">{"@context":"https://schema.org","@type":"CafeOrCoffeeShop","name":"In Ліс","url":"{{ alts.uk }}","telephone":"{{ phone[0] }}","servesCuisine":"Coffee, tea, cocoa, desserts","geo":{"@type":"GeoCoordinates","latitude":50.5118199,"longitude":30.2340059},"hasMap":"{{ maps }}"}</script>{% endblock %}
+{% block content %}
+<div class="hero">
+{% for x, y in [(10,30),(24,62),(38,22),(55,70),(70,28),(84,58),(92,20)] %}<i class="ff" aria-hidden="true" style="left:{{ x }}%;top:{{ y }}%;animation-delay:-{{ loop.index * 1.7 }}s,-{{ loop.index * 2.3 }}s"></i>{% endfor %}
+{% for x in [6, 28, 52, 74, 90] %}<span class="leaf" aria-hidden="true" style="left:{{ x }}%;animation-delay:-{{ loop.index * 3 }}s;animation-duration:{{ 14 + loop.index * 2 }}s">🍃</span>{% endfor %}
+<svg class="trees" viewBox="0 0 1200 110" preserveAspectRatio="none" aria-hidden="true">{% for i in range(24) %}<path d="M{{ i * 50 }} 110 L{{ i * 50 + 25 }} {{ 25 + (i * 37) % 45 }} L{{ i * 50 + 50 }} 110Z"/>{% endfor %}</svg>
+<div class="wrap">
+<div class="txt">
+<span class="pill">{{ t.tag }}</span>
+<h1>{{ t.h1 }}<em>{{ t.em }}</em></h1>
+<p class="lead">{{ t.lead }}</p>
+<div class="row"><a class="btn gold pulse" href="{{ maps }}" target="_blank" rel="noopener">📍 {{ t.cta }}</a><a class="link" href="tel:{{ phone[0] }}">📞 {{ phone[1] }}</a></div>
+</div>
+<div class="art"><div class="orbit" aria-hidden="true"><span>🌲</span><span>🍃</span><span>☕</span><span>🍰</span></div>
+<img src="{{ url_for('static', filename='logo.svg') }}" width="420" height="420" alt="{{ t.logo }}"></div>
+</div></div>
+<div class="strip" aria-hidden="true"><div>{% for i in range(4) %}{% for c in t.cats %}{{ c[0] }} {{ c[1] }} · {% endfor %}{% endfor %}</div></div>
+
+<section id="menu"><div class="wrap">
+<h2>{{ t.nav[0] }}</h2>
+<div class="grid g4">
+{% for ico, name, items in t.cats %}<div class="card"><div class="ico">{{ ico }}</div><h3>{{ name }}</h3><ul class="items">{% for i in items %}<li>{{ i }}</li>{% endfor %}</ul></div>{% endfor %}
+</div></div></section>
+
+<section id="photos" class="alt"><div class="wrap">
+<h2>{{ t.photos_h }}</h2>
+<div class="trio">
+{% for n in (4, 1, 2, 3) %}<figure class="photo"><img src="{{ sv('photo%d.jpg' % n) }}" width="685" height="819" loading="lazy" alt="{{ t.alt[n - 1] }}"></figure>{% endfor %}
+</div></div></section>
+
+<section id="contacts"><div class="wrap">
+<h2>{{ t.nav[2] }}</h2>
+<div class="grid g2">
+<div class="card"><div class="ico">📞</div><h3>{{ t.phone_l }}</h3><p><a class="big" href="tel:{{ phone[0] }}">{{ phone[1] }}</a></p></div>
+<div class="card hot"><div class="ico">🗺️</div><h3>Google Maps</h3><p><a class="btn light" href="{{ maps }}" target="_blank" rel="noopener">📍 {{ t.cta }}</a></p></div>
+</div></div></section>
+{% endblock %}

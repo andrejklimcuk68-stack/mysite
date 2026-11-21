@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block title %}404 — In Ліс{% endblock %}
+{% block desc %}{{ t.nf[0] }}{% endblock %}
+{% block head %}<meta name="robots" content="noindex">{% endblock %}
+{% block sticky %}{% endblock %}
+{% block content %}
+<div class="card doc" style="text-align:center"><h1>404</h1><p>{{ t.nf[0] }}</p><a class="btn" href="{{ L('/') }}">{{ t.nf[1] }}</a></div>
+{% endblock %}

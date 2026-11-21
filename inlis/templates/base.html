@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="{{ lang }}">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}{{ t.title }}{% endblock %}</title>
+<meta name="description" content="{% block desc %}{{ t.desc }}{% endblock %}">
+<link rel="canonical" href="{{ alts[lang] }}">
+{% for l, u in alts.items() %}<link rel="alternate" hreflang="{{ l }}" href="{{ u }}">{% endfor %}<link rel="alternate" hreflang="x-default" href="{{ alts.uk }}">
+<meta name="theme-color" content="#0f2116">
+<script>try{var m=localStorage.getItem("theme")||"dark";document.documentElement.dataset.theme=m;document.querySelector('meta[name="theme-color"]').content=m=="dark"?"#0f2116":"#f7f3e6"}catch(e){document.documentElement.dataset.theme="dark"}</script>
+<link rel="icon" href="{{ url_for('static', filename='favicon.svg') }}" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="In Ліс">
+<meta property="og:locale" content="{{ {'uk':'uk_UA','ru':'ru_RU','en':'en_US'}[lang] }}">
+<meta property="og:title" content="{{ self.title() }}">
+<meta property="og:description" content="{{ self.desc() }}">
+<meta property="og:url" content="{{ alts[lang] }}">
+<meta property="og:image" content="{{ url_for('static', filename='og-image.jpg', _external=True, v=4) }}">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="In Ліс: {{ t.cats[0][1] }}, {{ t.cats[1][1] }}, {{ t.cats[2][1] }}, {{ t.cats[3][1] }}">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="{{ sv('style.css') }}">
+{% block head %}{% endblock %}
+</head>
+<body data-ga="{{ ga_id }}">
+<header id="hd"><div class="wrap">
+<a class="brand" href="{{ L('/') }}"><img src="{{ url_for('static', filename='logo.svg') }}" width="44" height="44" alt="">In Ліс</a>
+<nav aria-label="Menu"><a href="{{ L('/') }}#menu">{{ t.nav[0] }}</a><a href="{{ L('/') }}#photos">{{ t.nav[1] }}</a><a href="{{ L('/') }}#contacts">{{ t.nav[2] }}</a></nav>
+<div class="lang" style="--i:{{ ['uk','ru','en'].index(lang) }}" role="group" aria-label="Language">{% for l in ['uk','ru','en'] %}<a href="{{ alts[l] }}" data-i="{{ loop.index0 }}" hreflang="{{ l }}" lang="{{ l }}"{% if l == lang %} aria-current="true"{% endif %}>{{ 'UA' if l == 'uk' else l|upper }}</a>{% endfor %}</div>
+<button type="button" id="theme" aria-label="Light / Dark" title="Light / Dark"><span class="sun">☀️</span><span class="moon">🌙</span></button>
+<a class="btn" href="{{ maps }}" target="_blank" rel="noopener">📍 {{ t.cta }}</a>
+</div></header>
+<main>{% block content %}{% endblock %}</main>
+<footer><div class="wrap">
+<div><strong>© 2026 In Ліс</strong><br><a href="tel:{{ phone[0] }}">{{ phone[1] }}</a></div>
+<div><a href="{{ L('/privacy') }}">{{ t.ft[0] }}</a><a href="{{ L('/terms') }}">{{ t.ft[1] }}</a><button type="button" id="cookie-settings">{{ t.ft[2] }}</button></div>
+</div></footer>
+{% block sticky %}<a class="btn sticky pulse" href="{{ maps }}" target="_blank" rel="noopener">📍 {{ t.cta }}</a>{% endblock %}
+<div id="cookie" role="dialog" aria-label="Cookies" hidden>
+<p>{{ t.ck[0] }} <a href="{{ L('/privacy') }}">{{ t.ck[3] }}</a></p>
+<div><button type="button" class="yes">{{ t.ck[1] }}</button><button type="button" class="no">{{ t.ck[2] }}</button></div>
+</div>
+<script src="{{ sv('app.js') }}" defer></script>
+</body>
+</html>
